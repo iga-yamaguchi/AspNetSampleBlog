@@ -154,11 +154,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\MvcBasicContext.cs" />
     <Compile Include="Models\MvcBasicInitializer.cs" />
-    <Compile Include="Models\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -226,6 +224,12 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AspNetSampleBlog.Domain\AspNetSampleBlog.Domain.csproj">
+      <Project>{d404abb6-c581-4e18-b325-cdfd67486301}</Project>
+      <Name>AspNetSampleBlog.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
