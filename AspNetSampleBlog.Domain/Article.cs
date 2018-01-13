@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AspNetSampleBlog.Domain.ValueObjects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,8 +12,14 @@ namespace AspNetSampleBlog.Domain
     {
         public int Id { get; set; }
 
+        private Title title;
+
         [Required]
-        public string Title { get; set; }
+        public string Title
+        {
+            get { return title.ToString(); }
+            set { this.title = new ValueObjects.Title(value); }
+        }
 
         [Required]
         public string Content { get; set; }
