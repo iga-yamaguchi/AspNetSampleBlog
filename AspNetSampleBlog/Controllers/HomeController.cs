@@ -13,17 +13,19 @@ namespace AspNetSampleBlog.Controllers
     {
         private MvcBasicContext db = new MvcBasicContext();
         private IArticleRepository articleRepository;
+        private ITagRepository tagRepository;
 
-        public HomeController() : this(new ArticleRepository()) { }
+        public HomeController() : this(new ArticleRepository(), new TagRepository()) { }
 
-        public HomeController(IArticleRepository articleRepository)
+        public HomeController(IArticleRepository articleRepository, ITagRepository tagRepository)
         {
             this.articleRepository = articleRepository;
+            this.tagRepository = tagRepository;
         }
 
         public ActionResult Index()
         {
-            return View(new HomeViewModel { Articles = articleRepository.All(), Tags = db.Tags.ToList() });
+            return View(new HomeViewModel { Articles = articleRepository.All(), Tags = tagRepository.All() });
         }
 
         public ActionResult About()
