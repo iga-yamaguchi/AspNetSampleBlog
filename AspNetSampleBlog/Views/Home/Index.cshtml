@@ -23,11 +23,7 @@
 
                         @*@if ($article->user->is_same_auth_user)*@
                         <a href="@Url.Action("Edit", "Articles", new { id = article.Id })" type="button" class="btn btn-primary">Edit</a>
-                        @*{{ Form::model($article, ['route' => ['article.destroy', $article->id], 'method' => 'DELETE', 'class' => 'form-inline btn']) }}
-                            <div class="form-group">
-                                {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
-                            </div>
-                            {{ Form::close() }}*@
+                        <a href="@Url.Action("Edit", "Articles", new { id = article.Id })" type="button" class="btn btn-danger">Delete</a>
                         @*@endif*@
                     </div>
                 </div>
