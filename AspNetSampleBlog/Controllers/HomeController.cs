@@ -1,4 +1,5 @@
 ﻿using AspNetSampleBlog.Models;
+using AspNetSampleBlog.Repositories;
 using AspNetSampleBlog.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,18 @@ namespace AspNetSampleBlog.Controllers
     public class HomeController : Controller
     {
         private MvcBasicContext db = new MvcBasicContext();
+        private IArticleRepository articleRepository;
+
+        public HomeController() : this(new ArticleRepository()) { }
+
+        public HomeController(IArticleRepository articleRepository)
+        {
+            this.articleRepository = articleRepository;
+        }
+
         public ActionResult Index()
         {
-            return View(new HomeViewModel { Articles = db.Articles.ToList(), Tags = db.Tags.ToList() });
+            return View(new HomeViewModel { Articles = articleRepository.All(), Tags = db.Tags.ToList() });
         }
 
         public ActionResult About()
