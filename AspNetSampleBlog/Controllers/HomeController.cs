@@ -1,4 +1,5 @@
 ﻿using AspNetSampleBlog.Models;
+using AspNetSampleBlog.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace AspNetSampleBlog.Controllers
         private MvcBasicContext db = new MvcBasicContext();
         public ActionResult Index()
         {
-            return View(db.Articles.ToList());
+            return View(new HomeViewModel { Articles = db.Articles.ToList(), Tags = db.Tags.ToList() });
         }
 
         public ActionResult About()

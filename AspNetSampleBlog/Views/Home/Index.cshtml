@@ -1,36 +1,53 @@
-﻿@model IEnumerable<AspNetSampleBlog.Domain.Article>
-
+﻿@model AspNetSampleBlog.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Home Page";
 }
 
-@foreach (var article in Model)
-{
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="thumbnail">
-                <a href="{{ route('article.show', $article) }}"><img src="@article.ImagePath" alt="..."></a>
-                <div class="caption">
-                    <a href="{{ route('article.show', $article) }}"><h3>@article.Title</h3></a>
-                    @foreach (var tag in article.Tags)
-                    {
-                        <a href="@Url.Action("Details", "Tags", new { id = tag.Id })"><span class="label label-info">@tag.Name</span></a>
-                    }
-                    <p class="text-success">by <a href="**user page url**">**user name**</a></p>
-                    <p class="text-primary">@article.Created</p>
-                    <p class="lead">@article.Content</p>
-                    <p class="text-right"><a href="@Url.Action("Details", "Articles", new { id = article.Id })" class="btn btn-default" role="button">More</a></p>
+<main class="col-sm-8">
+    @foreach (var article in Model.Articles)
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="thumbnail">
+                    <a href="@Url.Action("Details", "Articles", new { id = article.Id })"><img src="@article.ImagePath" alt="..."></a>
+                    <div class="caption">
+                        <a href="@Url.Action("Details", "Articles", new { id = article.Id })"><h3>@article.Title</h3></a>
+                        @foreach (var tag in article.Tags)
+                        {
+                            <a href="@Url.Action("Details", "Tags", new { id = tag.Id })"><span class="label label-info">@tag.Name</span></a>
+                        }
+                        <p class="text-success">by <a href="**user page url**">**user name**</a></p>
+                        <p class="text-primary">@article.Created</p>
+                        <p class="lead">@article.Content</p>
+                        <p class="text-right"><a href="@Url.Action("Details", "Articles", new { id = article.Id })" class="btn btn-default" role="button">More</a></p>
 
-                    @*@if ($article->user->is_same_auth_user)*@
-                    <a href="@Url.Action("Edit", "Articles", new { id = article.Id })" type="button" class="btn btn-primary">Edit</a>
-                    @*{{ Form::model($article, ['route' => ['article.destroy', $article->id], 'method' => 'DELETE', 'class' => 'form-inline btn']) }}
-                    <div class="form-group">
-                        {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+                        @*@if ($article->user->is_same_auth_user)*@
+                        <a href="@Url.Action("Edit", "Articles", new { id = article.Id })" type="button" class="btn btn-primary">Edit</a>
+                        @*{{ Form::model($article, ['route' => ['article.destroy', $article->id], 'method' => 'DELETE', 'class' => 'form-inline btn']) }}
+                            <div class="form-group">
+                                {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+                            </div>
+                            {{ Form::close() }}*@
+                        @*@endif*@
                     </div>
-                    {{ Form::close() }}*@
-                    @*@endif*@
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
+</main>
+<aside class="col-sm-4">
+    <ol class="list-group">
+        @*@foreach ($yearList as $year => $articles)*@
+        <li class="list-group-item"><a href="{{ route('article.year', $year) }}">{{ $year }}</a></li>
+        @*@endforeach*@
+    </ol>
+    <ul class="list-inline">
+        @*@foreach ($tags as $tag)*@
+        @foreach (var tag in Model.Tags)
+        {
+            <li class="">
+                <a href="@Url.Action("Details", "Tags", new { id = tag.Id })"><span class="label label-default">@tag.Name</span></a>
+            </li>
+        }
+    </ul>
+</aside>
