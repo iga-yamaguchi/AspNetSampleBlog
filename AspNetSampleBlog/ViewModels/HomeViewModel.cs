@@ -11,5 +11,7 @@ namespace AspNetSampleBlog.ViewModels
         public IEnumerable<Article> Articles { get; set; }
 
         public IEnumerable<Tag> Tags { get; set; }
+        
+        public IEnumerable<DateTime> Years { get; set; }
     }
 }

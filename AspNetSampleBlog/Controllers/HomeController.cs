@@ -25,7 +25,7 @@ namespace AspNetSampleBlog.Controllers
 
         public ActionResult Index()
         {
-            return View(new HomeViewModel { Articles = articleRepository.All(), Tags = tagRepository.All() });
+            return View(new HomeViewModel { Articles = articleRepository.All(), Tags = tagRepository.All(), Years = articleRepository.YearList() });
         }
 
         public ActionResult About()

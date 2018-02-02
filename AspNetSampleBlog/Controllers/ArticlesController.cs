@@ -8,17 +8,40 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AspNetSampleBlog.Models;
+using AspNetSampleBlog.Repositories;
+using AspNetSampleBlog.ViewModels;
 
 namespace AspNetSampleBlog.Controllers
 {
     public class ArticlesController : Controller
     {
         private MvcBasicContext db = new MvcBasicContext();
+        private IArticleRepository articleRepository;
+        private ITagRepository tagRepository;
+
+
+        public ArticlesController() : this(new ArticleRepository(), new TagRepository()) { }
+
+        public ArticlesController(IArticleRepository articleRepository, ITagRepository tagRepository)
+        {
+            this.articleRepository = articleRepository;
+            this.tagRepository = tagRepository;
+        }
 
         // GET: Articles
         public ActionResult Index()
         {
             return View(db.Articles.ToList());
+        }
+
+        public ActionResult Year(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            return View("~/Views/Home/Index.cshtml", new HomeViewModel { Articles = articleRepository.FindByYear((int)id), Tags = tagRepository.All(), Years = articleRepository.YearList() });
         }
 
         // GET: Articles/Details/5

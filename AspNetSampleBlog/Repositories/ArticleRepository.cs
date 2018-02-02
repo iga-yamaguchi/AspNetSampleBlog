@@ -15,5 +15,18 @@ namespace AspNetSampleBlog.Repositories
         {
             return db.Articles.ToList();
         }
+
+        public IEnumerable<Article> FindByYear(int year)
+        {
+            return db.Articles.Where(i => i.Created.Year == year)
+                .ToList();
+        }
+
+        public IEnumerable<DateTime> YearList()
+        {
+            return db.Articles.GroupBy(i => i.Created)
+                .Select(i => i.Key)
+                .ToList();
+        }
     }
 }

@@ -33,9 +33,10 @@
 </main>
 <aside class="col-sm-4">
     <ol class="list-group">
-        @*@foreach ($yearList as $year => $articles)*@
-        <li class="list-group-item"><a href="{{ route('article.year', $year) }}">{{ $year }}</a></li>
-        @*@endforeach*@
+        @foreach (var year in Model.Years)
+        {
+            <li class="list-group-item"><a href="@Url.Action("Year", "Articles", new { id = year.Year })">@year.ToString("yyyy")</a></li>
+        }
     </ol>
     <ul class="list-inline">
         @*@foreach ($tags as $tag)*@

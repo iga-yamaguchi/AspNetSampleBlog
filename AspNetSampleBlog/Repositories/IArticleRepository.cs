@@ -10,5 +10,9 @@ namespace AspNetSampleBlog.Repositories
     public interface IArticleRepository
     {
         IEnumerable<Article> All();
+
+        IEnumerable<Article> FindByYear(int year);
+
+        IEnumerable<DateTime> YearList();
     }
 }
