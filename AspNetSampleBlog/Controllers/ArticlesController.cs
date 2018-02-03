@@ -31,7 +31,7 @@ namespace AspNetSampleBlog.Controllers
         // GET: Articles
         public ActionResult Index()
         {
-            return View(db.Articles.ToList());
+            return View(articleRepository.All());
         }
 
         public ActionResult Year(int? id)
@@ -51,7 +51,7 @@ namespace AspNetSampleBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Article article = db.Articles.Find(id);
+            Article article = articleRepository.Find(id);
             if (article == null)
             {
                 return HttpNotFound();
@@ -74,8 +74,7 @@ namespace AspNetSampleBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Articles.Add(article);
-                db.SaveChanges();
+                articleRepository.Save(article);
                 return RedirectToAction("Index");
             }
 
@@ -89,7 +88,7 @@ namespace AspNetSampleBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Article article = db.Articles.Find(id);
+            Article article = articleRepository.Find(id);
             if (article == null)
             {
                 return HttpNotFound();
@@ -106,8 +105,7 @@ namespace AspNetSampleBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(article).State = EntityState.Modified;
-                db.SaveChanges();
+                articleRepository.Update(article);
                 return RedirectToAction("Index");
             }
             return View(article);
@@ -120,7 +118,7 @@ namespace AspNetSampleBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Article article = db.Articles.Find(id);
+            Article article = articleRepository.Find(id);
             if (article == null)
             {
                 return HttpNotFound();
@@ -133,9 +131,8 @@ namespace AspNetSampleBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Article article = db.Articles.Find(id);
-            db.Articles.Remove(article);
-            db.SaveChanges();
+            Article article = articleRepository.Find(id);
+            articleRepository.Delete(article);
             return RedirectToAction("Index");
         }
 

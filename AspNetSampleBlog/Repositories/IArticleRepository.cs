@@ -11,8 +11,16 @@ namespace AspNetSampleBlog.Repositories
     {
         IEnumerable<Article> All();
 
-        IEnumerable<Article> FindByYear(int year);
+        Article Find(int? id);
+
+        IEnumerable<Article> FindByYear(int? year);
 
         IEnumerable<DateTime> YearList();
+
+        int Save(Article article);
+
+        int Update(Article article);
+
+        int Delete(Article article);
     }
 }
