@@ -36,12 +36,18 @@ namespace AspNetSampleBlog.Controllers
 
         public ActionResult Year(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            var article = articleRepository.FindByYear((int)id);
 
-            return View("~/Views/Home/Index.cshtml", new HomeViewModel { Articles = articleRepository.FindByYear((int)id), Tags = tagRepository.All(), Years = articleRepository.YearList() });
+            if (article == null || article.Count() == 0)
+            {
+                return HttpNotFound();
+            }
+
+            return View("~/Views/Home/Index.cshtml", new HomeViewModel { Articles = article, Tags = tagRepository.All(), Years = articleRepository.YearList() });
         }
 
         // GET: Articles/Details/5
