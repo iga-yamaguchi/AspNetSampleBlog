@@ -136,6 +136,7 @@ namespace AspNetSampleBlog.Controllers
             return RedirectToAction("Index");
         }
 
+        // TODO: Move to repository
         protected override void Dispose(bool disposing)
         {
             if (disposing)
