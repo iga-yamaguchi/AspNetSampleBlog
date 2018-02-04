@@ -11,7 +11,6 @@ namespace AspNetSampleBlog.Controllers
 {
     public class HomeController : Controller
     {
-        private MvcBasicContext db = new MvcBasicContext();
         private IArticleRepository articleRepository;
         private ITagRepository tagRepository;
 
