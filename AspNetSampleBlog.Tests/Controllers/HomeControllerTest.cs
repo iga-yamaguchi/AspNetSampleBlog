@@ -6,6 +6,11 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AspNetSampleBlog;
 using AspNetSampleBlog.Controllers;
+using AspNetSampleBlog.Repositories;
+using Moq;
+using AspNetSampleBlog.Domain;
+using AspNetSampleBlog.Tests.Repositories;
+using AspNetSampleBlog.ViewModels;
 
 namespace AspNetSampleBlog.Tests.Controllers
 {
@@ -15,14 +20,35 @@ namespace AspNetSampleBlog.Tests.Controllers
         [TestMethod]
         public void Index()
         {
+            //var articleMock = new Mock<IArticleRepository>();
+            //articleMock.Setup(c => c.All())
+            //    .Returns(new List<Article>()
+            //    {
+            //        new Article(),
+            //        new Article(),
+            //        new Article(),
+            //    });
+            //var articleRepository = articleMock.Object;
+
+            //var tagMock = new Mock<ITagRepository>();
+            //tagMock.Setup(c => c.All())
+            //    .Returns(new List<Tag>()
+            //    {
+            //        new Tag(),
+            //        new Tag(),
+            //    });
+            //var tagRepository = tagMock.Object;
+
             // Arrange
-            HomeController controller = new HomeController();
+            //HomeController controller = new HomeController(articleRepository, tagRepository);
+            HomeController controller = new HomeController(new DummyArticleRepository(), new DummyTagRepository());
 
             // Act
             ViewResult result = controller.Index() as ViewResult;
+            var model = (HomeViewModel)result.Model;
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.AreEqual(3, model.Articles.Count());
         }
 
         [TestMethod]
